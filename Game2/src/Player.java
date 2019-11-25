@@ -189,7 +189,6 @@ public class Player {
 					get(room.getChests()[i].contents);
 					System.out.println("you got a " + room.getChests()[i].contents.name + "!");		
 					shouldOpen = false;
-					System.out.println(room.getChests()[i].space.type);
 					room.compileTiles();
 				}
 			}

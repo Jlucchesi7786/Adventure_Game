@@ -27,6 +27,7 @@ public class Runner {
 		"check inventory", "weapon", "check weapon", "gear", "check gear", "wait", "stats", "die", "show frame"}; // keeps track of all of the acceptable actions
 
 	static boolean inventHelp = true; // keeps track of whether the player has seen the inventory help message or not
+	static boolean moveHelp = true;
 	static boolean freeMoveHelp = true;
 
 	public static void main(String[] args) {
@@ -239,7 +240,7 @@ public class Runner {
 		String s = "";
 		s += "The list of commands is as follows: \n";
 		s += " - \'command\' (description) \n"; // a formatting example
-		s += " - \'move\' (lets your character move a space in one direction that you specify) \n";
+		s += " - \'move\' (lets your character move around) \n";
 		s += " - \'attack\' (makes your character attack one of the tiles next to him/her) \n";
 		s += " - \'open\' (opens a chest that is next to your character) \n";
 		s += " - \'stats\' (lets you see your character's stats) \n";
@@ -306,6 +307,11 @@ public class Runner {
 	static void move() {
 		String action;
 		print("Would you like to move freely or in one direction?");
+		if (moveHelp) {
+			print("Enter \"free\" to move freely, or \"direction\" to move in "
+					+ "one direction.");
+			moveHelp = false;
+		}
 		action = reader.nextLine();
 		if (action.equals("free")) {freeMove();}
 		else if (action.equals("direction")) directionMove();
@@ -324,13 +330,18 @@ public class Runner {
 			do {
 				print("Which direction would you like to move? (up, down, left, or right)"); // asks the player to input a direction
 				action = reader.nextLine();
-			} while (!action.equals("up") && !action.equals("down") && !action.equals("left") && !action.equals("right")); // keeps asking for a direction until given one
-
-			you.move(action, 1);
-			movementRemaining--;
-			line();
-			currentRoom.update(you);
-			System.out.println(currentRoom);
+			} while (!action.equals("up") && !action.equals("down") && !action.equals("left") && !action.equals("right") && !action.equals("stop")); // keeps asking for a direction until given one
+			
+			if (!action.equals("stop"))	{
+				you.move(action, 1);
+				movementRemaining--;
+				
+				line();
+				currentRoom.update(you);
+				System.out.println(currentRoom);
+			} else {
+				movementRemaining = 0;
+			}
 		} while (movementRemaining > 0);
 	}
 	
