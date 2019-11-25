@@ -5,11 +5,18 @@ import java.util.*;
  * @author Dr. Cheese
  */
 public class Compiler {
-	private static final Chest[] defaultChests = {new Chest(new Position(1, 30)), new Chest(30, 19), new Chest(1, 1), new Chest(30, 2), new Chest(5, 5), new Chest(26, 15)};
+	private static final Chest[] defaultChests = {new Chest(new Position(1, 30)), 
+		new Chest(30, 19), new Chest(1, 1), new Chest(30, 2), new Chest(5, 5), new Chest(26, 15)};
 	private Chest[] chests;
-	private static final Wall[] defaultWalls = {new Wall("vertical", 30, 6, 1), new Wall("horizontal", 5, 1, 4), new Wall("horizontal", 25, 6, 14), new Wall("vertical", 30, 25, 1), new Wall("horizontal", 6, 25, 18)};
+	private static final Wall[] defaultWalls = {new Wall("vertical", 30, 6, 1), 
+		new Wall("horizontal", 5, 1, 4), new Wall("horizontal", 25, 6, 14), 
+		new Wall("vertical", 30, 25, 1), new Wall("horizontal", 6, 25, 18), 
+		new Wall("horizontal", 6, 0, 20)};
 	private Wall[] walls;
-	private static final Door[] defaultDoors = {new Door(new Position(6, 2), "unlocked", "vertical"), new Door(new Position(25, 10), "unlocked", "vertical"), new Door(new Position(2, 4), "unlocked", "horizontal")};
+	private static final Door[] defaultDoors = {new Door(new Position(6, 2), "unlocked", "vertical"), 
+		new Door(new Position(25, 10), "unlocked", "vertical"), new Door(new Position(2, 4), "unlocked", "horizontal"), 
+		new Door(new Position(6, 16), "unlocked", "vertical"), new Door(new Position(6, 22), "unlocked", "vertical"), 
+		new Door(new Position(26, 18), "unlocked", "horizontal"), new Door(new Position(25, 27), "unlocked", "vertical")};
 	private Door[] doors;
 	private Player player;
 
