@@ -6,13 +6,16 @@ import java.util.Scanner;
  *
  */
 public class Runner {
+	static Scanner reader = new Scanner(System.in);
+	
 	static Room currentRoom;
 	static RoomStorage storage = new RoomStorage();
 	
-	static Scanner reader = new Scanner(System.in);
 	static public Player you; // this is what the player controls, but it hasn't been finalized yet
 	static String name = ""; // for whenever the Runner needs to reference the character's name
 
+	static Enemy[] enemies = {new Enemy()};
+	
 	static int turn; // keeps track of how many turns the player survived
 
 	static long ticks = 2000000000L; // provides a delay between taking actions and reprinting the frame
@@ -32,13 +35,11 @@ public class Runner {
 
 	public static void main(String[] args) {
 		startup(); // runs the startup method created below
-
+		
 		do {
-			//frame.updatePlayer(you); // tells the frame where the player is
 			currentRoom = storage.getCurrent();
 			currentRoom.update(you);
 			you.getRoom(currentRoom);
-			//System.out.println(currentRoom); // prints the frame, letting the player know what's going on
 			System.out.println(currentRoom);
 
 			if (PlayerTurn) {
@@ -47,6 +48,9 @@ public class Runner {
 			}
 
 			if (EnemyTurn) {
+				for (Enemy enemy: enemies) {
+					enemy.detect(you);
+				}
 				PlayerTurn = true; // lets the player have a go
 			}
 
@@ -332,15 +336,15 @@ public class Runner {
 				action = reader.nextLine();
 			} while (!action.equals("up") && !action.equals("down") && !action.equals("left") && !action.equals("right") && !action.equals("stop")); // keeps asking for a direction until given one
 			
-			if (!action.equals("stop"))	{
+			if (action.equals("stop")) {
+				movementRemaining = 0;
+			} else {
 				you.move(action, 1);
 				movementRemaining--;
 				
 				line();
 				currentRoom.update(you);
-				System.out.println(currentRoom);
-			} else {
-				movementRemaining = 0;
+				System.out.println(currentRoom);				
 			}
 		} while (movementRemaining > 0);
 	}

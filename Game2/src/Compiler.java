@@ -16,7 +16,8 @@ public class Compiler {
 	private static final Door[] defaultDoors = {new Door(new Position(6, 2), "unlocked", "vertical"), 
 		new Door(new Position(25, 10), "unlocked", "vertical"), new Door(new Position(2, 4), "unlocked", "horizontal"), 
 		new Door(new Position(6, 16), "unlocked", "vertical"), new Door(new Position(6, 22), "unlocked", "vertical"), 
-		new Door(new Position(26, 18), "unlocked", "horizontal"), new Door(new Position(25, 27), "unlocked", "vertical")};
+		new Door(new Position(26, 18), "unlocked", "horizontal"), new Door(new Position(25, 27), "unlocked", "vertical"),
+		new Door(new Position(6, 11), "unlocked", "vertical")};
 	private Door[] doors;
 	private Player player;
 
@@ -73,9 +74,9 @@ public class Compiler {
 					} else {
 						boolean added = false;
 
-						for (int c = 0; c < chests.length; c++) {
-							if (chests[c].pos.equals(gridPos)) {
-								rowList.add(chests[c].space);
+						for (Chest chest: chests) {
+							if (chest.pos.equals(gridPos)) {
+								rowList.add(chest.space);
 								added = true;
 							}
 						}
@@ -85,16 +86,16 @@ public class Compiler {
 							added = true;
 						}
 
-						for (int c = 0; c < doors.length; c++) {
-							if (doors[c].pos.equals(gridPos) && !added) {
-								rowList.add(doors[c].space);
+						for (Door door: doors) {
+							if (door.pos.equals(gridPos) && !added) {
+								rowList.add(door.space);
 								added = true;
 							}
 						}
 
-						for (int c = 0; c < walls.length; c++) {
-							if (walls[c].checkSpaces(gridPos) && !added) {
-								rowList.add(walls[c].space);
+						for (Wall wall: walls) {
+							if (wall.checkSpaces(gridPos) && !added) {
+								rowList.add(wall.space);
 								added = true;
 							}
 						}

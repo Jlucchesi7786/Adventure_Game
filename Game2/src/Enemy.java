@@ -18,34 +18,49 @@ public class Enemy {
 
 	boolean pursuing = false; // this changes the state of the monster
 
+	public Enemy() {
+		this("default", 1);
+	}
+	
 	/**
 	 * This constructor initializes an enemy with a name and some level to base the stats on.
 	 * @param name String
 	 * @param level int
 	 */
-	Enemy(String name, int level) {
-		this.name = name;
-		this.level = level;
-		str = (int)(Math.ceil(Math.random()*level)); // makes the damage the monster does randonly based on the level
-		def = (int)(Math.ceil(Math.random()*level)); // makes the amount the monster reduces damage by randomly based on the level
-		int x = (int)(Math.ceil(Math.random()*30)); // makes a random x position
-		int y = (int)(Math.ceil(Math.random()*30)); // makes a random y position
-		pos = new Position(x, y);
-		drop = new Item(); // sets up the monster drop with a random item
-		space = new Tile("monster");
+	public Enemy(String name, int level) {
+		this(new Position((int)(Math.ceil(Math.random()*30)), (int)(Math.ceil(Math.random()*30))), name, level);
 	}
 
 	/**
-	 * This constructor initializes an enemy at some given x and y position and a level to base the stats on. The String name is not initialized.
+	 * This constructor initializes an enemy at some given x and y position and a level to 
+	 * base the stats on. The String name is not initialized.
 	 * @param x int
 	 * @param y int
 	 * @param level int
 	 */
-	Enemy(int x, int y, int level) {
-		pos = new Position(x, y);
-		this.level = level; // sets the level
+	public Enemy(int x, int y, int level) {
+		this(new Position(x, y), level);
+	}
+	
+	public Enemy(Position pos, int level) {
+		this(pos, "default", level);
+	}
+	
+	public Enemy(Position pos, String name, int level) {
+		this.pos = pos;
+		this.name = name;
 		str = (int)(Math.ceil(Math.random()*level)); // makes the damage the monster does randonly based on the level
 		def = (int)(Math.ceil(Math.random()*level)); // makes the amount the monster reduces damage by randomly based on the level
 		drop = new Item();
+		space = new Tile("Monster");
+	}
+	
+	public void detect(Player player) {
+		double xDist = this.pos.x - player.pos.x;
+		double yDist = this.pos.x - player.pos.y;
+		double dist = Math.sqrt((Math.pow(xDist, 2) + Math.pow(yDist, 2)));
+		if (dist <= 5) {
+			pursuing = true;
+		}
 	}
 }
