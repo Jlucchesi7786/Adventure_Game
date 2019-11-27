@@ -340,8 +340,10 @@ public class Runner {
 				movementRemaining = 0;
 			} else {
 				you.move(action, 1);
-				movementRemaining--;
-				
+				movementRemaining--;			
+			}
+			
+			if (movementRemaining > 0) {
 				line();
 				currentRoom.update(you);
 				System.out.println(currentRoom);				

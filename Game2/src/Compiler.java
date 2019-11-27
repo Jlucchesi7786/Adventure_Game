@@ -11,7 +11,9 @@ public class Compiler {
 	private static final Wall[] defaultWalls = {new Wall("vertical", 30, 6, 1), 
 		new Wall("horizontal", 5, 1, 4), new Wall("horizontal", 25, 6, 14), 
 		new Wall("vertical", 30, 25, 1), new Wall("horizontal", 6, 25, 18), 
-		new Wall("horizontal", 6, 0, 20)};
+		new Wall("horizontal", 6, 0, 20), new Wall("horizontal", 32, 0, 0),
+		new Wall("horizontal", 32, 0, 31), new Wall("vertical", 32, 0, 0),
+		new Wall("vertical", 32, 31, 0)};
 	private Wall[] walls;
 	private static final Door[] defaultDoors = {new Door(new Position(6, 2), "unlocked", "vertical"), 
 		new Door(new Position(25, 10), "unlocked", "vertical"), new Door(new Position(2, 4), "unlocked", "horizontal"), 
@@ -35,18 +37,18 @@ public class Compiler {
 		this.doors = defaultDoors;
 		compileTiles();
 	}
-	
+
 	public Compiler(int width, int height, Player player, Chest[] chests, Wall[] walls, Door[] doors) {
-		this(width, height, chests, walls, doors);
-		this.player = player;
+		this(width, height, chests, walls, doors, player);
 	}
-	
-	public Compiler(int width, int height, Chest[] chests, Wall[] walls, Door[] doors) {
+
+	public Compiler(int width, int height, Chest[] chests, Wall[] walls, Door[] doors, Player player) {
 		this.width = width;
 		this.height = height;
 		this.chests = chests;
 		this.walls = walls;
 		this.doors = doors;
+		this.player = player;
 		compileTiles();
 	}
 
@@ -65,48 +67,40 @@ public class Compiler {
 		for (int x = 0; x < width; x++) {
 			ArrayList<Tile> rowList = new ArrayList<Tile>();
 			for (int y = 0; y < height; y++) {
-				if (y == 0 || y == height-1) {
-					rowList.add(new Tile("wall"));
-				} else {
-					Position gridPos = new Position(x, y);
-					if (x == 0 || x == width-1) {
-						rowList.add(new Tile("wall"));
-					} else {
-						boolean added = false;
+				Position gridPos = new Position(x, y);
+				boolean added = false;
 
-						for (Chest chest: chests) {
-							if (chest.pos.equals(gridPos)) {
-								rowList.add(chest.space);
-								added = true;
-							}
-						}
-
-						if (player.pos.equals(gridPos)) {
-							rowList.add(player.space);
-							added = true;
-						}
-
-						for (Door door: doors) {
-							if (door.pos.equals(gridPos) && !added) {
-								rowList.add(door.space);
-								added = true;
-							}
-						}
-
-						for (Wall wall: walls) {
-							if (wall.checkSpaces(gridPos) && !added) {
-								rowList.add(wall.space);
-								added = true;
-							}
-						}
-
-						if (!added) {
-							rowList.add(new Tile("empty"));
-						}
+				for (Chest chest: chests) {
+					if (chest.pos.equals(gridPos)) {
+						rowList.add(chest.space);
+						added = true;
 					}
 				}
+
+				if (player.pos.equals(gridPos)) {
+					rowList.add(player.space);
+					added = true;
+				}
+
+				for (Door door: doors) {
+					if (door.pos.equals(gridPos) && !added) {
+						rowList.add(door.space);
+						added = true;
+					}
+				}
+
+				for (Wall wall: walls) {
+					if (wall.checkSpaces(gridPos) && !added) {
+						rowList.add(wall.space);
+						added = true;
+					}
+				}
+
+				if (!added) {
+					rowList.add(new Tile("empty"));
+				}
 			}
-			
+
 			Tile[] rowArray = new Tile[rowList.size()];
 			rowList.toArray(rowArray);
 			mapList.add(rowArray);
@@ -128,19 +122,19 @@ public class Compiler {
 	public Tile getTile(Position tilePos) {
 		return map[tilePos.x][tilePos.y];
 	}
-	
+
 	public Tile[][] getMap() {
 		return map;
 	}
-	
+
 	public Chest[] getChests() {
 		return chests;
 	}
-	
+
 	public Wall[] getWalls() {
 		return walls;
 	}
-	
+
 	public Door[] getDoors() {
 		return doors;
 	}
