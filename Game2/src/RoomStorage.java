@@ -15,7 +15,7 @@ public class RoomStorage {
 		new Door(new Position(2, 9), "locked", "horizontal"), new Door(new Position(3, 11), "locked", "vertical"),
 		new Door(new Position(6, 5), "locked", "horizontal"), new Door(new Position(10, 9), "unlocked", "horizontal"),
 		new Door(new Position(12, 12), "unlocked", "vertical"), new Door(new Position(14, 10), "unlocked", "vertical")};
-	private static Room[] yeaboi = {new Room(13, 13, chests, walls, doors)};
+	private static Room[] yeaboi = {new Room(15, 15, chests, walls, doors)};
 	
 	public RoomStorage() {
 		rooms = yeaboi;

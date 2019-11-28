@@ -1,25 +1,13 @@
 import java.util.*;
 
 /**
- * This class takes all of the random tiles and characters lying around the dungeon and organizes them into one two-stage array, called map[][].
+ * This class takes all of the random tiles and characters lying around the dungeon 
+ * and organizes them into one two-stage array, called map[][].
  * @author Dr. Cheese
  */
 public class Compiler {
-	private static final Chest[] defaultChests = {new Chest(new Position(1, 30)), 
-		new Chest(30, 19), new Chest(1, 1), new Chest(30, 2), new Chest(5, 5), new Chest(26, 15)};
 	private Chest[] chests;
-	private static final Wall[] defaultWalls = {new Wall("vertical", 30, 6, 1), 
-		new Wall("horizontal", 5, 1, 4), new Wall("horizontal", 25, 6, 14), 
-		new Wall("vertical", 30, 25, 1), new Wall("horizontal", 6, 25, 18), 
-		new Wall("horizontal", 6, 0, 20), new Wall("horizontal", 32, 0, 0),
-		new Wall("horizontal", 32, 0, 31), new Wall("vertical", 32, 0, 0),
-		new Wall("vertical", 32, 31, 0)};
 	private Wall[] walls;
-	private static final Door[] defaultDoors = {new Door(new Position(6, 2), "unlocked", "vertical"), 
-		new Door(new Position(25, 10), "unlocked", "vertical"), new Door(new Position(2, 4), "unlocked", "horizontal"), 
-		new Door(new Position(6, 16), "unlocked", "vertical"), new Door(new Position(6, 22), "unlocked", "vertical"), 
-		new Door(new Position(26, 18), "unlocked", "horizontal"), new Door(new Position(25, 27), "unlocked", "vertical"),
-		new Door(new Position(6, 11), "unlocked", "vertical")};
 	private Door[] doors;
 	private Player player;
 
@@ -28,32 +16,24 @@ public class Compiler {
 
 	public Tile[][] map;
 
-	public Compiler(int width, int height, Player player) {
-		this.width = width;
-		this.height = height;
-		this.player = player;
-		this.chests = defaultChests;
-		this.walls = defaultWalls;
-		this.doors = defaultDoors;
-		compileTiles();
-	}
-
-	public Compiler(int width, int height, Player player, Chest[] chests, Wall[] walls, Door[] doors) {
-		this(width, height, chests, walls, doors, player);
-	}
-
-	public Compiler(int width, int height, Chest[] chests, Wall[] walls, Door[] doors, Player player) {
+	/**
+	 * The one constructor for the Compiler class takes in width, height, and a set 
+	 * of arrays and then organizes them into one simple array of tiles that the Room
+	 * class can then use to print out the dungeon to the console.
+	 * @param width the total width of the dungeon
+	 * @param height the total height of the dungeon
+	 * @param chests an array containing all of the Chests in the room
+	 * @param walls an array containing all of the Walls in the room
+	 * @param doors an array containing all of the Doors in the room
+	 */
+	public Compiler(int width, int height, Chest[] chests, Wall[] walls, Door[] doors) {
 		this.width = width;
 		this.height = height;
 		this.chests = chests;
 		this.walls = walls;
 		this.doors = doors;
-		this.player = player;
+		this.player = new Player();
 		compileTiles();
-	}
-
-	public Compiler() {
-		this(32, 32, new Player());
 	}
 
 	/**
@@ -119,22 +99,47 @@ public class Compiler {
 		compileTiles();
 	}
 
+	/**
+	 * This returns a Tile in a specific position on the map. Useful for 
+	 * navigation.
+	 * @param tilePos the Position (object) of the Tile you'd like to know
+	 * @return the Tile object that you wanted
+	 */
 	public Tile getTile(Position tilePos) {
 		return map[tilePos.x][tilePos.y];
 	}
 
+	/**
+	 * This gets the map. Pretty self-explanatory.
+	 * @return the map
+	 */
 	public Tile[][] getMap() {
 		return map;
 	}
 
+	/**
+	 * This gets the chests array specific to this compiler, for whenever 
+	 * that would be necessary.
+	 * @return the array of chests
+	 */
 	public Chest[] getChests() {
 		return chests;
 	}
 
+	/**
+	 * This gets the walls array specific to this compiler, for whenever 
+	 * that would be necessary.
+	 * @return the array of walls
+	 */
 	public Wall[] getWalls() {
 		return walls;
 	}
 
+	/**
+	 * This gets the doors array specific to this compiler, for whenever 
+	 * that would be necessary.
+	 * @return the array of doors
+	 */
 	public Door[] getDoors() {
 		return doors;
 	}
