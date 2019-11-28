@@ -199,6 +199,12 @@ public class Player {
 		this.room = room;
 	}
 	
+	public void spawn(Room room) {
+		this.room = room;
+		pos = room.getSpawnPosition();
+		room.compileTiles();
+	}
+	
 	private Tile[] getDirections() {
 		ArrayList<Tile> tileList = new ArrayList<Tile>(); // makes an ArrayList
 		tileList.add(room.map[pos.x][pos.y-1]); // up

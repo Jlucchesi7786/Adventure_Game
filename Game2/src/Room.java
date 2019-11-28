@@ -10,8 +10,10 @@
 public class Room extends Compiler {
 	int width;
 	int height;
-	Position spawnPos;
+	private Position spawnPos;
 
+	private static final Position defaultSpawnPos = new Position(1, 2);
+	
 	private static final Chest[] defaultChests = {new Chest(new Position(1, 30)), 
 		new Chest(30, 19), new Chest(1, 1), new Chest(30, 2), new Chest(5, 5), new Chest(26, 15)};
 
@@ -46,6 +48,12 @@ public class Room extends Compiler {
 	 */
 	public Room(int width, int height) {
 		this(width, height, defaultChests, defaultWalls, defaultDoors);
+		this.spawnPos = defaultSpawnPos;
+	}
+	
+	public Room(int width, int height, Position spawnPos) {
+		this(width, height, defaultChests, defaultWalls, defaultDoors);
+		this.spawnPos = spawnPos;
 	}
 
 	/**
@@ -61,6 +69,15 @@ public class Room extends Compiler {
 		super(width, height, chests, walls, doors);
 		this.width = width;
 		this.height = height;
+	}
+	
+	public Room(int width, int height, Chest[] chests, Wall[] walls, Door[] doors, Position spawnPos) {
+		this(width, height, chests, walls, doors);
+		this.spawnPos = spawnPos;
+	}
+	
+	public Position getSpawnPosition() {
+		return spawnPos;
 	}
 
 	/**

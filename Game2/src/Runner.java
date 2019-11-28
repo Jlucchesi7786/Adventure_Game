@@ -16,7 +16,7 @@ public class Runner {
 
 	static Enemy[] enemies = {new Enemy()};
 	
-	static int turn; // keeps track of how many turns the player survived
+	static int turn = 0; // keeps track of how many turns the player survived
 
 	static long ticks = 2000000000L; // provides a delay between taking actions and reprinting the frame
 
@@ -39,7 +39,11 @@ public class Runner {
 		do {
 			currentRoom = storage.getCurrent();
 			currentRoom.update(you);
-			you.getRoom(currentRoom);
+			if (turn == 0) {
+				you.spawn(currentRoom);
+			} else {
+				you.getRoom(currentRoom);
+			}
 			System.out.println(currentRoom);
 
 			if (PlayerTurn) {
