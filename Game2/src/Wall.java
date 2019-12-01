@@ -11,10 +11,6 @@ public class Wall {
 
 	public Tile space;
 	public Position[] spaces = {};
-
-	public Wall(String orientation, int length, int positionXstart, int positionYstart) {
-		this(orientation, length, new Position(positionXstart, positionYstart));
-	}
 	
 	public Wall(String orientation, int length, Position startPos) {
 		this.length = length;

@@ -13,10 +13,10 @@ public class Item {
 	public boolean weapon; // holds whether or not the item is a weapon
 	public boolean gear; // holds whether or not the item is a gear item
 	public boolean dmgBoost; // holds whether or not the gear item increases damage
+	
+	public boolean key;
 
-	public boolean shield; // holds whether or not the item is a shield
-
-	private String[] types = {"Longsword", "Iron Shield", "Shortsword", "Amulet of Strength"}; // an array that hold all of the types that an Item can be
+	private String[] types = {"Longsword", "Iron Shield", "Shortsword", "Amulet of Strength", "Simple Key"}; // an array that hold all of the types that an Item can be
 
 	/**
 	 * This constructor is used when the author wants to make a specific item.
@@ -47,10 +47,14 @@ public class Item {
 	 * This method is used as the final part of construction to set the name of the item with a bonus and type.
 	 */
 	private void setName() {
-		if (itemMod != 0) { // if the bonus on the object has a value
-			name = "+" + itemMod + " " + type; // sets the name as +(bonus) type (Ex. +2 Longsword)
-		} else { // otherwise just sets the name as Regular type (Ex. Regular Shortsword)
-			name = "Regular " + type;
+		if (!key) {
+			if (itemMod != 0) { // if the bonus on the object has a value
+				name = "+" + itemMod + " " + type; // sets the name as +(bonus) type (Ex. +2 Longsword)
+			} else { // otherwise just sets the name as Regular type (Ex. Regular Shortsword)
+				name = "Regular " + type;
+			}
+		} else {
+			name = type;
 		}
 	}
 
@@ -66,22 +70,29 @@ public class Item {
 			baseMod = 2; // Shortswords have a base of +2 damage
 			weapon = true; // A Shortsword is a weapon
 			gear = false; // A Shortsword can't be equipped as a gear item
+		} else {
+			weapon = false;
 		}
 
 		if (type.equals("Amulet of Strength")) {
 			baseMod = 1; // An Amulet of Strength has a base of +1 damage
 			weapon = false; // An Amulet of Strength is not a weapon
 			gear = true; // An Amulet of Strength is a gear item
-			shield = false; // An Amulet of Strength is not a shield
 
 			dmgBoost = true; // An Amulet of Strength boosts damage despite not being a weapon
 		} else if (type.equals("Iron Shield")) {
 			baseMod = 2; // An Iron Shield has a base of +2 defense
 			weapon = false; // An Iron Shield is not a weapon
 			gear = true; // An Iron Shield is a gear item
-			shield = true; // An Iron Shield is a shield
 
 			dmgBoost = false; // An Iron Shield does not boost damage
+		} else {
+			gear = false;
+		}
+		
+		if (type.equals("Simple Key")) {
+			baseMod = 0;
+			key = true;
 		}
 	}
 

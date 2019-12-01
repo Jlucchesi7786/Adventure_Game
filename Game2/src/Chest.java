@@ -10,22 +10,22 @@ public class Chest {
 	Item contents; // the Item inside the chest
 	Tile space;
 
-	/**
-	 * This constructor makes a new chest at an (x, y) coordinate set upon declaration.
-	 * @param x int
-	 * @param y int
-	 */
-	Chest(int x, int y) {
-		this(new Position(x,y));
-	}
-
-	Chest(Position pos) {
-		this.pos = pos;
-
-		open = false; // sets the state of the chest to not open, or closed
-
-		contents = new Item(); // generates a random item to be inside the chest
+	public Chest() {
+		this.pos = new Position();
+		open = false;
+		contents = new Item();
 		space = new Tile("closed chest");
+	}
+	
+	Chest(Position pos) {
+		this();
+		this.pos = pos;
+	}
+	
+	Chest(Item drop, Position pos) {
+		this();
+		this.pos = pos;
+		this.contents = drop;
 	}
 
 	/**

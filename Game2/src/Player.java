@@ -72,7 +72,7 @@ public class Player {
 	 * This method sets the character's equipped weapon using the type of the weapon.
 	 * @param name String
 	 */
-	public void setWeaponByName(String name) {
+	/*public void setWeaponByName(String name) {
 		for (int i = 0; i < inventory.length; i++) { // checks the entire inventory
 			if (name.equals(inventory[i].name)) { // checks for a matching name in the inventory
 				equip(inventory[i]); // equips it if there is
@@ -84,14 +84,28 @@ public class Player {
 	 * This method sets the character's equipped gear using the name of the gear.
 	 * @param name String
 	 */
-	public void setGearByName(String name) {
+	/*public void setGearByName(String name) {
 		for (int i = 0; i < inventory.length; i++) { // checks the entire inventory
 			if (name.equals(inventory[i].name)) { // checks for a matching name in the inventory
 				equip(inventory[i]); // equips it if there is
 			}
 		}
+	}*/
+	
+	public void equip(String name) {
+		boolean found = false;
+		for (Item item: inventory) {
+			if (name.equals(item.name)) {
+				equip(item);
+				found = true;
+			}
+		}
+		if (!found) {
+			System.out.println("The item you're trying to equip isn't in your inventory,"
+					+ " or it was spelled wrong.");
+		}
 	}
-
+	
 	/**
 	 * This method uses some logic to determine what type of item is trying to be equipped, then changes the mod and the equip slot.
 	 * @param a Item object
@@ -127,6 +141,8 @@ public class Player {
 			dmg = str + strmod; // redefines damage
 			dmgred = def + defmod; // redefines the damage reduction stat
 			gear = a; // stores what the new gear item is
+		} else {
+			System.out.println("You can't equip something that's not a gear item or weapon.");
 		}
 	}
 

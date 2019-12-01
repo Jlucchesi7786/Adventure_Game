@@ -10,6 +10,10 @@ public class Position {
   public int x; // stores the x position
   public int y; // stores the y position
 
+  public Position() {
+	  this(-1, -1);
+  }
+  
   /**
    * This constructor sets up the Position to store one point initially that can then be 
    * modified or changed.

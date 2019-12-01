@@ -6,10 +6,6 @@ public class Door {
 	public String orientation;
 	boolean locked;
 
-	public Door(int x, int y, String state, String orientation) {
-		this(new Position(x, y), state, orientation);
-	}
-
 	public Door(Position pos, String state, String orientation) {
 		this.orientation = orientation;
 		this.pos = pos;

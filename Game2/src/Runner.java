@@ -27,7 +27,8 @@ public class Runner {
 
 	static String action = ""; // used to keep track of what the player has entered for the character to do
 	static String[] actions = {"move", "open", "attack", "help", "help2", "inventory",
-		"check inventory", "weapon", "check weapon", "gear", "check gear", "wait", "stats", "die", "show frame"}; // keeps track of all of the acceptable actions
+		"check inventory", "weapon", "check weapon", "gear", "check gear", "wait", "stats", "die", "show frame",
+		"unlock"}; // keeps track of all of the acceptable actions
 
 	static boolean inventHelp = true; // keeps track of whether the player has seen the inventory help message or not
 	static boolean moveHelp = true;
@@ -119,7 +120,7 @@ public class Runner {
 
 			while (checkInvent) { // if the character is checking their inventory, do this
 				if (canEquip & inventHelp) { // prints a help message if it is the player's first time in this screen
-					print("What would you like to do now? (you can equip other items in this menu. Enter equip to do so)");
+					print("What would you like to do now? (you can equip other items in this menu. Enter \"equip\" to do so)");
 					inventHelp = false; // turns off the help message
 				} else {
 					print("What would you like to do now?");
@@ -128,9 +129,13 @@ public class Runner {
 
 				if (canEquip) { // if the player is looking at their full inventory
 					if (action.equals("equip")) { // if their next command is equip, lets them equip something
-						print("Would you like to equip a weapon or a gear item?");
+						print("Which item would you like to equip?");
+						action = reader.nextLine();
+						you.equip(action);
+						/*print("Would you like to equip a weapon or a gear item?");
 						action = reader.nextLine();
 
+						
 						if (action.equals("weapon")) { // the program asks the player to tell it whether to equip a weapon or gear item
 							print("Enter the name of the weapon you'd like to equip, including any bonus or Regular if there are none.");
 							action = reader.nextLine();
@@ -141,7 +146,7 @@ public class Runner {
 							action = reader.nextLine();
 							you.setGearByName(action);
 							print("You equipped a " + you.gear.name);
-						}
+						}*/
 
 						print("What would you like to do now?"); // once the process is done, asks for a new command
 						action = reader.nextLine();
@@ -330,7 +335,7 @@ public class Runner {
 		int movementRemaining = you.spd;
 		if (freeMoveHelp) {
 			print("This mode will let you move freely, and not just in one line."
-					+ " You can move up to your speed.");
+					+ " You can move up to your speed. \nEnter \"stop\" to stop moving.");
 			freeMoveHelp = false;
 		}
 		

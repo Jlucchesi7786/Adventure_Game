@@ -15,14 +15,16 @@ public class Room extends Compiler {
 	private static final Position defaultSpawnPos = new Position(1, 2);
 	
 	private static final Chest[] defaultChests = {new Chest(new Position(1, 30)), 
-		new Chest(30, 19), new Chest(1, 1), new Chest(30, 2), new Chest(5, 5), new Chest(26, 15)};
+		new Chest(new Position(30, 19)), new Chest(new Position(1, 1)), 
+		new Chest(new Position(30 ,2)), new Chest(new Position(5, 5)), 
+		new Chest(new Position(26, 15))};
 
-	private static final Wall[] defaultWalls = {new Wall("vertical", 30, 6, 1), 
-		new Wall("horizontal", 5, 1, 4), new Wall("horizontal", 25, 6, 14), 
-		new Wall("vertical", 30, 25, 1), new Wall("horizontal", 6, 25, 18), 
-		new Wall("horizontal", 6, 0, 20), new Wall("horizontal", 32, 0, 0),
-		new Wall("horizontal", 32, 0, 31), new Wall("vertical", 32, 0, 0),
-		new Wall("vertical", 32, 31, 0)};
+	private static final Wall[] defaultWalls = {new Wall("vertical", 30, new Position(6, 1)), 
+		new Wall("horizontal", 5, new Position(1, 4)), new Wall("horizontal", 25, new Position(6, 14)), 
+		new Wall("vertical", 30, new Position(25, 1)), new Wall("horizontal", 6, new Position(25, 18)), 
+		new Wall("horizontal", 6, new Position(0, 20)), new Wall("horizontal", 32, new Position(0, 0)),
+		new Wall("horizontal", 32, new Position(0, 31)), new Wall("vertical", 32, new Position(0, 0)),
+		new Wall("vertical", 32, new Position(31, 0))};
 
 	private static final Door[] defaultDoors = {new Door(new Position(6, 2), "unlocked", "vertical"), 
 		new Door(new Position(25, 10), "unlocked", "vertical"), new Door(new Position(2, 4), "unlocked", "horizontal"), 

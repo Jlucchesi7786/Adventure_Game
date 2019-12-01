@@ -30,17 +30,6 @@ public class Enemy {
 	public Enemy(String name, int level) {
 		this(new Position((int)(Math.ceil(Math.random()*30)), (int)(Math.ceil(Math.random()*30))), name, level);
 	}
-
-	/**
-	 * This constructor initializes an enemy at some given x and y position and a level to 
-	 * base the stats on. The String name is not initialized.
-	 * @param x int
-	 * @param y int
-	 * @param level int
-	 */
-	public Enemy(int x, int y, int level) {
-		this(new Position(x, y), level);
-	}
 	
 	public Enemy(Position pos, int level) {
 		this(pos, "default", level);
